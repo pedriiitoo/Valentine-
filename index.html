@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine?</title>
+
+<style>
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: #ffe6eb; /* initial pink before yes */
+}
+
+.box {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+}
+
+h1 {
+    color: #e6005c;
+}
+
+/* Buttons wrapper */
+.buttons {
+    position: relative;
+    height: 70px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#yes {
+    background-color: #ff4d79;
+    color: white;
+    position: relative;
+    left: -40px;
+}
+
+#no {
+    background-color: #999;
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(40px);
+}
+
+/* Message after yes click */
+#gifMessage {
+    display: none;
+    margin-top: 20px;
+    color: #8B0000; /* dark red-pink */
+    text-shadow: 1px 1px 2px #000;
+}
+
+.footer {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #8B0000; /* dark red-pink */
+    text-shadow: 1px 1px 2px #000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Sumedha, will you be my Valentine?</h1>
+
+    <div class="buttons" id="buttons">
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+
+    <div id="gifMessage">
+        <h2>You are mine forever, honey</h2>
+        <div class="footer">Made just for my baby,ilyyy</div>
+    </div>
+</div>
+
+<script>
+const noButton = document.getElementById("no");
+const yesButton = document.getElementById("yes");
+const gifMessage = document.getElementById("gifMessage");
+const buttons = document.getElementById("buttons");
+
+let scale = 1;
+
+// Move the No button around
+function moveNoButton() {
+    scale -= 0.1;
+    if (scale < 0.3) scale = 0.3;
+
+    noButton.style.transform = `scale(${scale})`;
+
+    const area = buttons.getBoundingClientRect();
+    const btn = noButton.getBoundingClientRect();
+
+    const maxX = area.width - btn.width;
+    const maxY = area.height - btn.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+}
+
+noButton.addEventListener("mouseover", moveNoButton);
+noButton.addEventListener("touchstart", moveNoButton);
+
+// Yes button click
+yesButton.addEventListener("click", () => {
+    // Change full background
+    document.body.style.background = "url('https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif') center/cover no-repeat";
+
+    // Show message instantly
+    gifMessage.style.display = "block";
+
+    // Change button texts
+    yesButton.textContent = "Forever";
+    noButton.textContent = "Too late";
+});
+</script>
+
+</body>
+</html>
